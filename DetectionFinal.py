@@ -15,13 +15,10 @@ Autores:
 import cv2
 import mediapipe as mp
 import numpy as np
-import cv2
 import os
 import tkinter as tk
 from tkinter import simpledialog
 import subprocess
-import threading
-import psutil
 
 videos = {}
 
@@ -33,43 +30,6 @@ my_landmarks = None
 video_landmarks = None
 
 
-def split_video_and_audio(original_path, video_path, audio_path):
-    """
-    Separa o vídeo e o áudio em arquivos diferentes usando FFmpeg.
-    """
-    # Extrair vídeo (sem áudio)
-    subprocess.run(
-        ["ffmpeg", "-i", original_path, "-an", "-vcodec", "copy", video_path, "-y"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    # Extrair áudio
-    subprocess.run(
-        ["ffmpeg", "-i", original_path, "-vn", "-acodec", "pcm_s16le", audio_path, "-y"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-
-
-def play_audio(video_path, stop_event):
-    """
-    Reproduz o áudio diretamente do arquivo .mp4 usando FFmpeg.
-    """
-    process = subprocess.Popen(
-        ["ffplay", "-nodisp", "-autoexit", video_path],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
-    )
-    try:
-        while not stop_event.is_set():
-            pass
-    finally:
-        # Encerra o processo de áudio
-        if process.poll() is None:  # Verifica se o processo ainda está ativo
-            parent = psutil.Process(process.pid)
-            for child in parent.children(recursive=True):  # Termina subprocessos
-                child.kill()
-            parent.kill()
 
 def escolheMidia():
     # Criando uma imagem de menu para exibir no OpenCV
