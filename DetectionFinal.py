@@ -1,3 +1,16 @@
+"""
+Projeto para detecção de poses.
+
+
+Autores:
+- Brunna Dalzini
+- Edmilho dos Anjos
+- Matheus Costa
+- Maressa Karen
+
+Última atualização: 27/11/2024
+"""
+
 
 import cv2
 import mediapipe as mp
