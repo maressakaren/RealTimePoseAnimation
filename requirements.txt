@@ -1,0 +1,6 @@
+yt-dlp
+opencv-python
+mediapipe
+numpy
+psutil
+tk
